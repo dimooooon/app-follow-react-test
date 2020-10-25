@@ -1,6 +1,6 @@
 import { isEuMember } from 'is-eu-member';
 import { whereCountry } from 'iso-3166-1';
-import { checkVAT, countries } from 'jsvat';
+import { checkVAT } from 'jsvat';
 
 type TValidationResult = string | null;
 export type TValidationFunction = (value: string, message?: string) => TValidationResult;

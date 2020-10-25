@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
 
 import logo from './logo.svg';
 import './App.css';
@@ -8,14 +8,19 @@ import { billingDataService } from './services/data-services/billing-data.servic
 import EditBillingDataModal from './components/EditBillingDataModal/EditBillingDataModal';
 import { BillingForm } from './models/billing-form.model';
 import { messageService } from './services/message.service';
+import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
 
 function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [loading, setloading] = useState(false);
   const [billingForm, setBillingForm] = useState({} as BillingForm);
 
   function loadData(): void {
+    setloading(true);
+
     billingDataService.getData()
         .then((data: BillingForm) => {
+            setloading(false);
             setBillingForm(data);
             setIsModalVisible(true);
         });
@@ -30,12 +35,15 @@ function App() {
   }
 
   function onSave(): void {
+    setloading(true);
+
     billingDataService.saveData(billingForm.toDto())
       .then((response) => {
         if (response instanceof Error) {
           return;
         }
 
+        setloading(false);
         setIsModalVisible(false);
         messageService.success('Billing data successfully saved');
       })
@@ -50,6 +58,7 @@ function App() {
         <Button primary onClick={loadData}>Fill Data</Button>
       </main>
       <EditBillingDataModal billingForm={billingForm} visible={isModalVisible} onClose={onClose} onSave={onSave} onChange={onChange} />
+      <LoadingIndicator isVisible={loading}/>
     </div>
   );
 }
