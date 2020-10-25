@@ -28,6 +28,6 @@ export class BillingForm implements IBaseModel {
     }
 
     public toDto(): {[key: string]: any} {
-        return {};
+        return this.billing.toDto();
     }
 }

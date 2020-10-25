@@ -1,4 +1,3 @@
-import { AnyMxRecord } from "dns";
 import { DropdownOption } from "../models/dropdown-option.model";
 
 const defaultValueGetter = (item: any) => item.id;

@@ -1,5 +1,5 @@
-import { BillingForm } from '../models/billing-form.model';
-import { Billing } from '../models/billing.model';
+import { BillingForm } from '../../models/billing-form.model';
+import { SuccessResponse } from '../../models/success-response';
 import { BaseDataService } from './base-data.service';
 
 class BillingDataService extends BaseDataService {
@@ -12,10 +12,8 @@ class BillingDataService extends BaseDataService {
             });
     }
 
-    public saveData(data: {[key: string]: any}): Promise<void> {
-        return this.put('save', data).then((response: {[key: string]: any}) => {
-            debugger;
-        });
+    public saveData(data: {[key: string]: any}): Promise<SuccessResponse> {
+        return this.post('save', data);
     }
 }
 

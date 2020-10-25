@@ -4,9 +4,10 @@ import { Button } from 'semantic-ui-react'
 import logo from './logo.svg';
 import './App.css';
 
-import { billingDataService } from './services/billing-data.service';
+import { billingDataService } from './services/data-services/billing-data.service';
 import EditBillingDataModal from './components/EditBillingDataModal/EditBillingDataModal';
 import { BillingForm } from './models/billing-form.model';
+import { messageService } from './services/message.service';
 
 function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -29,9 +30,15 @@ function App() {
   }
 
   function onSave(): void {
-    billingDataService.saveData(billingForm.toDto()).then(() => {
-      setIsModalVisible(false);
-    });
+    billingDataService.saveData(billingForm.toDto())
+      .then((response) => {
+        if (response instanceof Error) {
+          return;
+        }
+
+        setIsModalVisible(false);
+        messageService.success('Billing data successfully saved');
+      })
   }
 
   return (
