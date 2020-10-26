@@ -1,9 +1,16 @@
-import { isEuMember } from 'is-eu-member';
+import { isEuMember, getEuMembers } from 'is-eu-member';
 import { whereCountry } from 'iso-3166-1';
-import { checkVAT } from 'jsvat';
+import { checkVAT, countries } from 'jsvat';
 
 type TValidationResult = string | null;
 export type TValidationFunction = (value: string, message?: string) => TValidationResult;
+
+const euCountries = countries.filter(c => { 
+    const memberCodes = getEuMembers();
+    const country = whereCountry(c.name);
+
+    return country ? memberCodes.includes(country.alpha2) : false;
+});
 
 export class ValidationHelper {
     public static validate(value: string, validators: TValidationFunction[], params?: {[key: string]: string}): TValidationResult {
@@ -57,9 +64,7 @@ export class ValidationHelper {
     }
 
     public static vatValidator(value: string, message: string = 'Incorrect VAT ID'): TValidationResult {
-        const result = checkVAT(value);
-
-        debugger;
+        const result = checkVAT(value, euCountries);
 
         return result.isValid ? null : message;
     }

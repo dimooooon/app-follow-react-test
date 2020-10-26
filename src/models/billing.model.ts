@@ -11,7 +11,7 @@ export class Billing implements IBaseModel {
     public readonly state: string;
 
     constructor(item: any) {
-        this.name = '';
+        this.name = item.name || '';
         this.company = item.company || '';
         this.country = item.country || '';
         this.vatId = item.vat || '';
