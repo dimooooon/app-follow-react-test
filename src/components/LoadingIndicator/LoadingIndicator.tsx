@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { LOADING_INDICATOR_DELAY } from '../../common/constants';
+import React from 'react';
 
 import './LoadingIndicator.css';
 
@@ -8,23 +7,7 @@ interface ILoadingIndicatorProps {
 }
 
 function LoadingIndicator(props: ILoadingIndicatorProps) {
-    //const [isVisible, setIsVisible] = useState(false);
-    const isVisible = useRef(props.isVisible);
-    // isVisibleRef.current = isVisible;
-
-    useEffect(() => {
-        if (!props.isVisible) {
-            isVisible.current = false;
-        }
-        else {
-            // in order to not show loading indicators for fast operations (it looks odd)
-            window.setTimeout(() => {
-                isVisible.current = true;
-            }, LOADING_INDICATOR_DELAY);
-        }
-    }, [props.isVisible]);
-
-    if (!isVisible.current) {
+    if (!props.isVisible) {
         return null;
     }
 
