@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 
 import BillingDataForm from '../BillingDataForm/BillingDataForm';
 
 import { BillingForm } from '../../models/billing-form.model';
+import { FormValidationProvider } from '../FormValidationProvider/FormValidationProvider';
 
 interface IEditBillingDataModalProps {
     billingForm: BillingForm;
@@ -14,6 +15,24 @@ interface IEditBillingDataModalProps {
 }
 
 function EditBillingDataModal(props: IEditBillingDataModalProps) {
+    const [isValid, setValid] = useState(false);
+    const [isErrorsVisible, setErrorsVisible] = useState(false);
+
+    function onSave(): void {
+        setErrorsVisible(true);
+
+        if (!isValid) {
+            return;
+        }
+
+        props.onSave();
+    }
+
+    function onValidChange(isValid: boolean): void {
+        setValid(isValid);
+        setErrorsVisible(false);
+    }
+
     if (!props.visible) {
         return null;
     }
@@ -22,10 +41,12 @@ function EditBillingDataModal(props: IEditBillingDataModalProps) {
         <Modal open={props.visible} onClose={props.onClose} size="tiny" closeIcon>
             <Modal.Header>Billing Details</Modal.Header>
             <Modal.Content>
-                <BillingDataForm billingForm={props.billingForm} onChange={props.onChange} />
+                <FormValidationProvider>
+                    <BillingDataForm billingForm={props.billingForm} onChange={props.onChange} onValidChange={onValidChange} showErrors={isErrorsVisible} />
+                </FormValidationProvider>
             </Modal.Content>
             <Modal.Actions>
-                <Button onClick={props.onSave} positive>Save</Button>
+                <Button onClick={onSave} positive>Save</Button>
             </Modal.Actions>
         </Modal>
     );

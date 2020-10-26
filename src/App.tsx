@@ -37,7 +37,7 @@ function App() {
   function onSave(): void {
     setloading(true);
 
-    billingDataService.saveData(billingForm.toDto())
+    billingDataService.saveData(BillingForm.toDto(billingForm))
       .then((response) => {
         if (response instanceof Error) {
           return;
@@ -57,7 +57,12 @@ function App() {
       <main className='app-content'>
         <Button primary onClick={loadData}>Fill Data</Button>
       </main>
-      <EditBillingDataModal billingForm={billingForm} visible={isModalVisible} onClose={onClose} onSave={onSave} onChange={onChange} />
+      <EditBillingDataModal
+        billingForm={billingForm}
+        visible={isModalVisible}
+        onClose={onClose}
+        onSave={onSave}
+        onChange={onChange} />
       <LoadingIndicator isVisible={loading}/>
     </div>
   );
