@@ -11,7 +11,7 @@ import { messageService } from './services/message.service';
 import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
 
 function App() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [loading, setloading] = useState(false);
   const [billingForm, setBillingForm] = useState({} as BillingForm);
 
@@ -22,7 +22,7 @@ function App() {
         .then((data: BillingForm) => {
             setloading(false);
             setBillingForm(data);
-            setIsModalVisible(true);
+            setModalVisible(true);
         });
   }
 
@@ -31,7 +31,7 @@ function App() {
   }
 
   function onClose(): void {
-    setIsModalVisible(false);
+    setModalVisible(false);
   }
 
   function onSave(): void {
@@ -44,7 +44,7 @@ function App() {
         }
 
         setloading(false);
-        setIsModalVisible(false);
+        setModalVisible(false);
         messageService.success('Billing data successfully saved');
       })
   }

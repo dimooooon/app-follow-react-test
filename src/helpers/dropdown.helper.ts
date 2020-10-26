@@ -1,4 +1,4 @@
-import { DropdownOption } from "../models/dropdown-option.model";
+import { DropdownOption } from '../models/dropdown-option.model';
 
 const defaultValueGetter = (item: any) => item.id;
 const defaultTextGetter = (item: any) => item.name;

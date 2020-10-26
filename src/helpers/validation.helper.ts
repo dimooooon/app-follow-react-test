@@ -13,7 +13,7 @@ const euCountries = countries.filter(c => {
 });
 
 export class ValidationHelper {
-    public static validate(value: string, validators: TValidationFunction[], params?: {[key: string]: string}): TValidationResult {
+    public static validate(value: string, validators: TValidationFunction[]): TValidationResult {
         let result: string | null = null;
 
         for(let i = 0; i < validators.length; i++) {

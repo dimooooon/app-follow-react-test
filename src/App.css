@@ -36,7 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-textarea {
-  min-height: 80px;
-}
