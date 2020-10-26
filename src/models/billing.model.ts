@@ -1,6 +1,4 @@
-import { IBaseModel } from './base.model';
-
-export class Billing implements IBaseModel {
+export class Billing {
     public readonly name: string;
     public readonly company: string;
     public readonly country: string;
@@ -21,16 +19,16 @@ export class Billing implements IBaseModel {
         this.state = item.state || '';
     }
 
-    public toDto(): {[key: string]: any} {
+    public static toDto(item: Billing): {[key: string]: any} {
         return {
-            name: this.name || '',
-            company: this.company || '',
-            country: this.country || '',
-            vat: this.vatId || '',
-            zip_code: this.zipCode || '',
-            city: this.city || '',
-            address: this.address || '',
-            state: this.state || '',
+            name: item.name || '',
+            company: item.company || '',
+            country: item.country || '',
+            vat: item.vatId || '',
+            zip_code: item.zipCode || '',
+            city: item.city || '',
+            address: item.address || '',
+            state: item.state || '',
         };
     }
 }

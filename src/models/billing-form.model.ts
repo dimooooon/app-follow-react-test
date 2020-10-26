@@ -1,9 +1,8 @@
 import { DropdownHelper } from '../helpers/dropdown.helper';
-import { IBaseModel } from './base.model';
 import { Billing } from './billing.model';
 import { DropdownOption } from './dropdown-option.model';
 
-export class BillingForm implements IBaseModel {
+export class BillingForm {
     public readonly billing: Billing;
     public readonly countries: DropdownOption[];
     public readonly statesMap: {[key: string]: DropdownOption[] } = {};
@@ -27,7 +26,7 @@ export class BillingForm implements IBaseModel {
         });
     }
 
-    public toDto(): {[key: string]: any} {
-        return this.billing.toDto();
+    public static toDto(item: BillingForm): {[key: string]: any} {
+        return Billing.toDto(item.billing);
     }
 }
