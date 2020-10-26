@@ -8,12 +8,23 @@ class BillingDataService extends BaseDataService {
     public getData(): Promise<BillingForm> {
         return this.get('billing_info')
             .then((response: {[key: string]: any}) => {
+                if (response instanceof Error) {
+                    throw response;
+                }
+
                 return new BillingForm(response);
             });
     }
 
     public saveData(data: {[key: string]: any}): Promise<SuccessResponse> {
-        return this.post('save', data);
+        return this.post('save', data)
+            .then((response: any) => {
+                if (response instanceof Error) {
+                    throw response;
+                }
+
+                return response;
+            });
     }
 }
 

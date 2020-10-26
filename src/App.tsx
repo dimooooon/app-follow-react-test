@@ -23,6 +23,9 @@ function App() {
             setloading(false);
             setBillingForm(data);
             setModalVisible(true);
+        })
+        .catch(_error => {
+          setloading(false);
         });
   }
 
@@ -38,15 +41,14 @@ function App() {
     setloading(true);
 
     billingDataService.saveData(BillingForm.toDto(billingForm))
-      .then((response) => {
-        if (response instanceof Error) {
-          return;
-        }
-
+      .then(() => {
         setloading(false);
         setModalVisible(false);
         messageService.success('Billing data successfully saved');
       })
+      .catch(_error => {
+        setloading(false);
+      });
   }
 
   return (
